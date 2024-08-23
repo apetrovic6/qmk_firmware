@@ -2,10 +2,10 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = LAYOUT(KC_Q, KC_W, KC_E, KC_R, KC_T,                                     KC_Y, KC_U, KC_I, KC_O, KC_P,
-                 LSFT_T(KC_A), LT(5,KC_S), LT(1,KC_D), LT(3,KC_F), KC_G,           KC_H, LT(4,KC_J), LT(2,KC_K), LT(6,KC_L), LSFT_T(KC_SCLN),
-                 KC_Z, LCTL_T(KC_X), LALT_T(KC_C), KC_V, KC_B,                     KC_N, KC_M, LALT_T(KC_COMM), LCTL_T(KC_DOT), KC_SLSH,
-                                            KC_P0, KC_BSPC,                             LT(7,KC_SPC), KC_P1),
+	[0] = LAYOUT(KC_Y, KC_C, KC_L, KC_M, KC_K,                                     KC_Z, KC_F, KC_U, KC_COMMA, KC_QUOTE,
+                 LGUI_T(KC_I), LALT_T(KC_S), LSFT_T(KC_R), LCTL_T(KC_T), KC_G,     KC_P, RCTL_T(KC_N), RSFT_T(KC_E), RALT_T(KC_A), RGUI_T(KC_O),
+                 KC_Q, LCTL_T(KC_V), LALT_T(KC_W), KC_D, KC_J,                     KC_B, KC_H, LALT_T(KC_SLASH), LCTL_T(KC_DOT), KC_X,
+                                            KC_TAB, KC_ENTER,                             KC_SPC, KC_BSPC),
 
 	[1] = LAYOUT(RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,                       RGB_SPI, KC_BTN1, KC_WH_U, KC_BTN2, KC_TRNS,
                  KC_TRNS, KC_BTN2, KC_NO, KC_BTN1, KC_TRNS,                         KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[7] = LAYOUT(KC_TRNS, KC_TRNS, KC_COLN, KC_ESC, KC_TRNS,                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
                  KC_TRNS, KC_PERC, KC_SLSH, KC_ENT, KC_TRNS,                        DF(1), KC_LGUI, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_EXLM, KC_TRNS,                       DF(0), KC_TRNS, RALT_T(KC_COMM), RCTL_T(KC_DOT),
-                                            QK_BOOT, KC_TRNS,                            KC_TAB, KC_NO, KC_TRNS)
+                                            QK_BOOT, KC_TRNS,                            KC_TAB, KC_NO, KC_TRNS),
 };
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
@@ -49,8 +49,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 };
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
-
-
-
-
-

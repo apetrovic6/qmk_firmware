@@ -10,20 +10,20 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU GeneralgPublic License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
 // Not yet available in `keymap.json` format
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_SLEEP
-#    define RGB_MATRIX_KEYPRESSES
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#    define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#    define ENABLE_RGB_MATRIX_RAINBOW_BEACON 
-#endif
+// #ifdef RGB_MATRIX_ENABLE
+// #    define RGB_MATRIX_SLEEP
+// #    define RGB_MATRIX_KEYPRESSES
+// #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+// #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
+// #    define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+// #endif
 
 // Not yet available in `keymap.json` format
 #ifdef MOUSEKEY_ENABLE
@@ -32,3 +32,11 @@
      // The default is 40
 #    define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 #endif
+
+
+// #undef WS2812_DI_PIN
+// #define WS2812_DI_PIN 25
+// #undef RGBLED_NUM
+// #define RGBLED_NUM 2
+// #undef RGBLED_SPLIT
+// #define RGBLED_SPLIT {1, 1}

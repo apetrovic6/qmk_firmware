@@ -44,6 +44,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             QK_BOOT, KC_TRNS,                            KC_TAB, KC_NO, KC_TRNS),
 };
 
+#ifdef RGBLIGHT_ENABLE
+void keyboard_post_init_user(void) {
+  rgblight_enable_noeeprom(); // enables RGB, without saving settings
+  rgblight_sethsv_noeeprom(HSV_RED); // sets the color to red without saving
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // sets mode to Fast breathing without saving
+}
+#endif
+
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 

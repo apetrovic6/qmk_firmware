@@ -14,4 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 DEFAULT_FOLDER = splitkb/aurora/sweep/rev1
-RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_ENABLE = no
+RGBLIGHT_ENABLE = yes
+WS2812_DRIVER = vendor

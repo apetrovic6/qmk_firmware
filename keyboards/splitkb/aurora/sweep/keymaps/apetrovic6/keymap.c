@@ -234,7 +234,7 @@ void h_escape_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP:
             tap_code(KC_H);
             break;
-        case TD_DOUBLE_TAP:
+        case TD_SINGLE_HOLD:
             tap_code16(KC_ESC);
             break;
         default:
@@ -257,7 +257,7 @@ void p_nav_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP:
             tap_code(KC_P);
             break;
-        case TD_DOUBLE_TAP:
+        case TD_SINGLE_HOLD:
             layer_invert(NAV);
             break;
         default:

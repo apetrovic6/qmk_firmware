@@ -7,7 +7,7 @@
 
 enum tap_dance_codes {
   TD_DOT_EXC,
-  TD_SLASH_UNDERSCORE,
+  TD_SLSH_UNDRSCR,
   TD_COMMA_DASH,
   TD_X_PROG, // For switching to PROG_SYM layer
   TD_H_ESC, // H and ESCAPE
@@ -47,7 +47,7 @@ td_state_t cur_dance(tap_dance_state_t *state);
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[ALPHA] = LAYOUT(KC_Y,        KC_C,         KC_L,         KC_M,         KC_K,       KC_Z,         KC_F,         KC_U,                    TD(TD_COMMA_DASH), KC_QUOTE,
                     LGUI_T(KC_I), LALT_T(KC_S), LSFT_T(KC_R), LCTL_T(KC_T), KC_G,       TD(TD_P_NAV), RCTL_T(KC_N), RSFT_T(KC_E),            RALT_T(KC_A),      RGUI_T(KC_O),
-                    KC_Q, KC_V, KC_W, KC_D, KC_J,                                       KC_B,         TD(TD_H_ESC), TD(TD_SLASH_UNDERSCORE), TD(TD_DOT_EXC),    TD(TD_X_PROG),
+                    KC_Q, KC_V, KC_W, KC_D, KC_J,                                       KC_B,         TD(TD_H_ESC), TD(TD_SLSH_UNDRSCR),     TD(TD_DOT_EXC),    TD(TD_X_PROG),
                                             KC_TAB, KC_ENTER,                        KC_SPC, KC_BSPC),
 
 
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NAV] = LAYOUT(KC_TRNS, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2,  KC_ACL0,           RGB_SPI, KC_HOME, KC_TRNS, KC_TRNS, KC_END,
                    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL1,                     KC_TRNS, TD(TD_CTRL_LEFT), KC_DOWN, KC_UP, TD(TD_CTRL_RIGHT),
                    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2,                     RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                        KC_TRNS, KC_TRNS,                           KC_TRNS, KC_TRNS),
+                                        KC_TRNS, TG(ALPHA),                           TO(ALPHA), KC_TRNS),
 
     [VIM] = LAYOUT(KC_CIRC, KC_7, KC_8, KC_9, KC_DOLLAR,                 RGB_SPI, KC_HOME, KC_TRNS, KC_TRNS, KC_END,
                    KC_NO, KC_4, KC_5, KC_6, KC_NO,                     KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
@@ -312,7 +312,7 @@ void ctrl_right_reset(tap_dance_state_t *state, void *user_data) {
 // Tap Dance definition
 tap_dance_action_t tap_dance_actions[] = {
     [TD_DOT_EXC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_exc_finished, dot_exc_reset),
-    [TD_SLASH_UNDERSCORE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slash_underscore_finished, slash_underscore_reset),
+    [TD_SLSH_UNDRSCR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slash_underscore_finished, slash_underscore_reset),
     [TD_COMMA_DASH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_dash_finished, comma_dash_reset),
     [TD_X_PROG] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_prog_finished, x_prog_reset),
     [TD_H_ESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, h_escape_finished, h_escape_reset),

@@ -14,6 +14,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 DEFAULT_FOLDER = splitkb/aurora/sweep/rev1
+TAP_DANCE_ENABLE = yes
+TRI_LAYER_ENABLE = yes
+WPM_ENABLE = yes
 RGB_MATRIX_ENABLE = no
 RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = vendor

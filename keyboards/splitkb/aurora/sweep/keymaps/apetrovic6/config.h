@@ -33,6 +33,9 @@
 #    define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 #endif
 
+// Tap Dance config
+#define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY
 
 // #undef WS2812_DI_PIN
 // #define WS2812_DI_PIN 25

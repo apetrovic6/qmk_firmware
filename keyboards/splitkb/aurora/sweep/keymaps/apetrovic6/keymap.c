@@ -14,6 +14,8 @@ enum tap_dance_codes {
   TD_P_NAV,
   TD_CTRL_LEFT,
   TD_CTRL_RIGHT,
+  TD_DOUBLE_COLON,
+  TD_TAB_SYM
 };
 
 typedef enum {
@@ -25,7 +27,7 @@ typedef enum {
     TD_DOUBLE_HOLD,
     TD_DOUBLE_SINGLE_TAP, // Send two single taps
     TD_TRIPLE_TAP,
-    TD_TRIPLE_HOLD
+    TD_TRIPLE_HOLD,
 } td_state_t;
 
 enum macros  {
@@ -48,37 +50,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[ALPHA] = LAYOUT(KC_Y,        KC_C,         KC_L,         KC_M,         KC_K,       KC_Z,         KC_F,         KC_U,                    TD(TD_COMMA_DASH), KC_QUOTE,
                     LGUI_T(KC_I), LALT_T(KC_S), LSFT_T(KC_R), LCTL_T(KC_T), KC_G,       TD(TD_P_NAV), RCTL_T(KC_N), RSFT_T(KC_E),            RALT_T(KC_A),      RGUI_T(KC_O),
                     KC_Q, KC_V, KC_W, KC_D, KC_J,                                       KC_B,         TD(TD_H_ESC), TD(TD_SLSH_UNDRSCR),     TD(TD_DOT_EXC),    TD(TD_X_PROG),
-                                            KC_TAB, KC_ENTER,                        KC_SPC, KC_BSPC),
+                                            TD(TD_TAB_SYM), KC_ENTER,                        KC_SPC, KC_BSPC),
 
 
 	// [2] = LAYOUT(KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //                KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, KC_TRNS,                         KC_TRNS, KC_LGUI, KC_NO, LCTL(KC_LALT), LCA(KC_LSFT),
   //                KC_TRNS, KC_HOME, KC_PGDN, KC_END, KC_TRNS,                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //                                           KC_TRNS, KC_TRNS,                           KC_TRNS, KC_TRNS),
-	[SYM] = LAYOUT(KC_AT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_UNDS, KC_PIPE, QK_BOOT, KC_SLASH,
-                 KC_CIRC, KC_ASTR, KC_AMPR, KC_NO,   KC_TRNS,                       KC_HASH, KC_TILD, KC_SLSH, KC_DQUO, KC_DLR,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_MINS, KC_BSLS, KC_GRV,  KC_TRNS,
-                                            RGB_RMOD, KC_TRNS,                          KC_TRNS, RGB_MOD),
+
+	[SYM] = LAYOUT(KC_AT, KC_HASH, KC_DOLLAR, KC_PERC, KC_TRNS,                         KC_CIRC, KC_AMPR, KC_ASTR, TD(TD_DOUBLE_COLON), KC_SCLN,
+                 KC_EQUAL, KC_QUOT,       KC_GRV, KC_NO,   KC_TRNS,                     KC_BACKSLASH, KC_LPRN, KC_RPRN, LSFT(KC_LBRC), LSFT(KC_RBRC),
+                 KC_TILD, LSFT(KC_QUOTE), LSFT(KC_GRAVE), KC_TRNS, KC_DQUO,             LSFT(KC_BACKSLASH), KC_LBRC, KC_RBRC, KC_LABK,  KC_RABK,
+                                            RGB_RMOD, TO(ALPHA),                          MO(NUM_FN), KC_TRNS),
 
 	[PROG_SYM] = LAYOUT(KC_AT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_UNDS, KC_PIPE, QK_BOOT, KC_SLASH,
-                 KC_CIRC, KC_ASTR, KC_AMPR, KC_NO,   KC_TRNS,                       KC_HASH, KC_TILD, KC_SLSH, KC_DQUO, KC_DLR,
+                 KC_EQUAL, KC_ASTR, KC_AMPR, KC_NO,   KC_TRNS,                       KC_HASH, KC_TILD, KC_SLSH, KC_DQUO, KC_DLR,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_MINS, KC_BSLS, KC_GRV,  KC_TRNS,
                                             RGB_RMOD, KC_TRNS,                          KC_TRNS, RGB_MOD),
 
 	// [NAV] = LAYOUT(RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,                       RGB_SPI, KC_HOME, KC_TRNS, KC_BTN2, KC_END,
-  //                KC_TRNS, KC_BTN2, KC_NO, KC_BTN1, KC_TRNS,                         KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
+  //                KC_TRNS, KC_BTN2, KC_NO, KC_BTN1, KC_TRNS,                         KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,KC_SCLNKC_SCLNKC_SCLN
   //                KC_TRNS, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD,                      RGB_SPD, KC_WH_L, KC_WH_D, KC_WH_R, KC_TRNS,
   //                                           KC_TRNS, KC_TRNS,                           KC_TRNS, KC_TRNS),
 
     [NAV] = LAYOUT(KC_TRNS, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2,  KC_ACL0,           RGB_SPI, KC_HOME, KC_TRNS, KC_TRNS, KC_END,
                    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_ACL1,                     KC_TRNS, TD(TD_CTRL_LEFT), KC_DOWN, KC_UP, TD(TD_CTRL_RIGHT),
                    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_ACL2,                     RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                        KC_TRNS, TG(ALPHA),                           TO(ALPHA), KC_TRNS),
+                                        KC_TRNS, TO(ALPHA),                           KC_TRNS, KC_TRNS),
 
     [VIM] = LAYOUT(KC_CIRC, KC_7, KC_8, KC_9, KC_DOLLAR,                 RGB_SPI, KC_HOME, KC_TRNS, KC_TRNS, KC_END,
                    KC_NO, KC_4, KC_5, KC_6, KC_NO,                     KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
                    KC_NO, KC_1, KC_2, KC_3, KC_NO,                     RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                             KC_0, KC_DOLLAR,                           KC_TRNS, KC_TRNS),
+
+	[NUM_FN] = LAYOUT(KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS,                    KC_SLASH, KC_7, KC_8, KC_9, KC_MINUS,
+                 KC_F5, KC_F6, KC_F7, KC_F8, KC_AT,                              KC_ASTR, KC_4, KC_5, KC_6, KC_PLUS,
+                 KC_F1, KC_F2, KC_F3, KC_F4, KC_TRNS,                            KC_DOT, KC_1, KC_2, KC_3, KC_EQUAL,
+                                            KC_VOLD, TG(ALPHA),                       KC_0, KC_TRNS),
 
 	[4] = LAYOUT(KC_TRNS, KC_COLN, KC_LT, KC_GT, KC_SCLN,                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT,                         KC_TRNS, KC_NO, KC_EQL, KC_PLUS, KC_PERC,
@@ -309,6 +317,47 @@ void ctrl_right_reset(tap_dance_state_t *state, void *user_data) {
     tap_state.state = TD_NONE;
 }
 
+
+void double_colon_finished(tap_dance_state_t *state, void *user_data);
+void double_colon_reset(tap_dance_state_t *state, void *user_data);
+
+void double_colon_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(LSFT(KC_SEMICOLON));
+            break;
+        case TD_SINGLE_HOLD:
+            send_string("::");
+            break;
+        default:
+            break;
+    }
+}
+
+void double_colon_reset(tap_dance_state_t *state, void *user_data) {
+    // No need for unregister_code when using tap_code or tap_code16
+    tap_state.state = TD_NONE;
+}
+
+
+void tab_sym_finished(tap_dance_state_t *state, void *user_data);
+void tab_sym_reset(tap_dance_state_t *state, void *user_data);
+
+void tab_sym_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code(KC_TAB);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_invert(SYM);
+            break;
+        default:
+            break;
+    }
+}
+
 // Tap Dance definition
 tap_dance_action_t tap_dance_actions[] = {
     [TD_DOT_EXC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_exc_finished, dot_exc_reset),
@@ -319,4 +368,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_P_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, p_nav_finished, NULL),
     [TD_CTRL_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrl_left_finished, ctrl_left_reset),
     [TD_CTRL_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrl_right_finished, ctrl_right_reset),
+    [TD_DOUBLE_COLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, double_colon_finished, double_colon_reset),
+    [TD_TAB_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_sym_finished, NULL),
 };

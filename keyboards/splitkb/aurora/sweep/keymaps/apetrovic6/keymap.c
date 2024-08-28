@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "layers.h"
+#include "macros.h"
 
 #include QMK_KEYBOARD_H
 
@@ -30,9 +31,7 @@ typedef enum {
     TD_TRIPLE_HOLD,
 } td_state_t;
 
-enum macros  {
-    M_PARENS = 0,
-};
+
 
 typedef struct {
     bool is_press_action;
@@ -47,10 +46,16 @@ static td_tap_t tap_state = {
 td_state_t cur_dance(tap_dance_state_t *state);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+	// [ALPHA] = LAYOUT(KC_Q,        KC_W,         KC_F,         KC_P,         KC_B,       KC_J,         KC_L,         KC_U,                    KC_Y, KC_SEMICOLON,
+    //                 LGUI_T(KC_A), LALT_T(KC_R), LSFT_T(KC_S), LCTL_T(KC_T), KC_G,       TD(TD_P_NAV), RCTL_T(KC_N), RSFT_T(KC_E),            RALT_T(KC_I),      RGUI_T(KC_O),
+    //                 KC_Z, KC_X, KC_C, KC_D, KC_V,                                       KC_K,         TD(TD_H_ESC), KC_COMMA,     TD(TD_DOT_EXC),    TD(TD_X_PROG),
+    //                                         TD(TD_TAB_SYM), LT(NUM_FN,KC_ENTER),                        KC_SPC, KC_BSPC),
+
 	[ALPHA] = LAYOUT(KC_Y,        KC_C,         KC_L,         KC_M,         KC_K,       KC_Z,         KC_F,         KC_U,                    TD(TD_COMMA_DASH), KC_QUOTE,
                     LGUI_T(KC_I), LALT_T(KC_S), LSFT_T(KC_R), LCTL_T(KC_T), KC_G,       TD(TD_P_NAV), RCTL_T(KC_N), RSFT_T(KC_E),            RALT_T(KC_A),      RGUI_T(KC_O),
                     KC_Q, KC_V, KC_W, KC_D, KC_J,                                       KC_B,         TD(TD_H_ESC), TD(TD_SLSH_UNDRSCR),     TD(TD_DOT_EXC),    TD(TD_X_PROG),
-                                            TD(TD_TAB_SYM), KC_ENTER,                        KC_SPC, KC_BSPC),
+                                            LT(SYM, KC_TAB), LT(NUM_FN,KC_ENTER),                        LT(NAV, KC_SPC), LT(PROG_SYM, KC_BSPC)),
 
 
 	// [2] = LAYOUT(KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -58,13 +63,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                KC_TRNS, KC_HOME, KC_PGDN, KC_END, KC_TRNS,                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //                                           KC_TRNS, KC_TRNS,                           KC_TRNS, KC_TRNS),
 
-	[SYM] = LAYOUT(KC_AT, KC_HASH, KC_DOLLAR, KC_PERC, KC_TRNS,                         KC_CIRC, KC_AMPR, KC_ASTR, TD(TD_DOUBLE_COLON), KC_SCLN,
-                 KC_EQUAL, KC_QUOT,       KC_GRV, KC_NO,   KC_TRNS,                     KC_BACKSLASH, KC_LPRN, KC_RPRN, LSFT(KC_LBRC), LSFT(KC_RBRC),
+	[SYM] = LAYOUT(KC_AT, KC_HASH, KC_DOLLAR, KC_PERC, KC_UNDS,                         KC_CIRC, KC_AMPR, KC_ASTR, TD(TD_DOUBLE_COLON), KC_SCLN,
+                 KC_EQUAL, KC_QUOT,       KC_GRV, KC_NO,   KC_MINUS,                     KC_BACKSLASH, KC_LPRN, KC_RPRN, LSFT(KC_LBRC), LSFT(KC_RBRC),
                  KC_TILD, LSFT(KC_QUOTE), LSFT(KC_GRAVE), KC_TRNS, KC_DQUO,             LSFT(KC_BACKSLASH), KC_LBRC, KC_RBRC, KC_LABK,  KC_RABK,
-                                            RGB_RMOD, TO(ALPHA),                          MO(NUM_FN), KC_TRNS),
+                                            RGB_RMOD, TO(ALPHA),                         KC_TRNS, KC_TRNS),
 
-	[PROG_SYM] = LAYOUT(KC_AT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_UNDS, KC_PIPE, QK_BOOT, KC_SLASH,
-                 KC_EQUAL, KC_ASTR, KC_AMPR, KC_NO,   KC_TRNS,                       KC_HASH, KC_TILD, KC_SLSH, KC_DQUO, KC_DLR,
+	[PROG_SYM] = LAYOUT(M_DOUBLE_EQUAL, M_NOT_EQUAL, KC_TRNS, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_UNDS, KC_PIPE, QK_BOOT, KC_SLASH,
+                 M_PARENS, M_CURLY, M_BRACKETS, M_ANGLE, KC_NO,                       KC_HASH, KC_TILD, KC_SLSH, KC_DQUO, KC_DLR,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_MINS, KC_BSLS, KC_GRV,  KC_TRNS,
                                             RGB_RMOD, KC_TRNS,                          KC_TRNS, RGB_MOD),
 
@@ -88,22 +93,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_F1, KC_F2, KC_F3, KC_F4, KC_TRNS,                            KC_DOT, KC_1, KC_2, KC_3, KC_EQUAL,
                                             KC_VOLD, TG(ALPHA),                       KC_0, KC_TRNS),
 
-	[4] = LAYOUT(KC_TRNS, KC_COLN, KC_LT, KC_GT, KC_SCLN,                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+	[10] = LAYOUT(KC_TRNS, KC_COLN, KC_LT, KC_GT, KC_SCLN,                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT,                         KC_TRNS, KC_NO, KC_EQL, KC_PLUS, KC_PERC,
                  KC_TRNS, KC_EXLM, KC_LBRC, KC_RBRC, KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                             KC_VOLD, KC_TRNS,                           KC_TRNS, KC_VOLU),
 
-	[5] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_F7, KC_F8, KC_F9, KC_F10,
+	[11] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_F7, KC_F8, KC_F9, KC_F10,
                  KC_TRNS, KC_NO, LCTL(KC_LALT), KC_TRNS, KC_TRNS,                   KC_TRNS, KC_F4, KC_F5, KC_F6, KC_F11,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F12,
                                              KC_TRNS, KC_TRNS,                          KC_TRNS, KC_TRNS),
 
-	[6] = LAYOUT(KC_PSLS, KC_7, KC_8, KC_9, KC_PPLS,                                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+	[12] = LAYOUT(KC_PSLS, KC_7, KC_8, KC_9, KC_PPLS,                                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_0, KC_1, KC_2, KC_3, KC_PMNS,                                   KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_TRNS,
                  KC_PAST, KC_4, KC_5, KC_6, KC_PEQL,                                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                             KC_TRNS, KC_TRNS,                           KC_TRNS, KC_TRNS),
 
-	[7] = LAYOUT(KC_TRNS, KC_TRNS, KC_COLN, KC_ESC, KC_TRNS,                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
+	[13] = LAYOUT(KC_TRNS, KC_TRNS, KC_COLN, KC_ESC, KC_TRNS,                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
                  KC_TRNS, KC_PERC, KC_SLSH, KC_ENT, KC_TRNS,                        DF(1), KC_LGUI, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_EXLM, KC_TRNS,                       DF(0), KC_TRNS, RALT_T(KC_COMM), RCTL_T(KC_DOT),
                                             QK_BOOT, KC_TRNS,                            KC_TAB, KC_NO, KC_TRNS),
@@ -371,3 +376,57 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_DOUBLE_COLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, double_colon_finished, double_colon_reset),
     [TD_TAB_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_sym_finished, NULL),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case M_BRACKETS:
+               if (record->event.pressed) {
+                     SEND_STRING("[]" SS_TAP(X_LEFT));
+                }
+        break;
+
+        case M_PARENS:
+            if (record->event.pressed) {
+                SEND_STRING("()" SS_TAP(X_LEFT));
+            }
+        break;
+
+        case M_CURLY:
+            if (record->event.pressed) {
+                SEND_STRING("{}" SS_TAP(X_LEFT));
+            }
+        break;
+
+        case M_ANGLE:
+        if (record->event.pressed) {
+            SEND_STRING("<>" SS_TAP(X_LEFT));
+        }
+        break;
+
+        case M_DOUBLE_EQUAL:
+        if (record->event.pressed) {
+            SEND_STRING("==");
+        }
+        break;
+
+        case M_NOT_EQUAL:
+        if (record->event.pressed) {
+            SEND_STRING("!=");
+        }
+        break;
+    };
+    return true;
+}
+
+
+// extern rgb_config_t rgb_matrix_config;
+
+// void keyboard_post_init_user(void) {
+//   rgb_matrix_enable();
+// }
+
+// const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
+//     [ALPHA] = {  {201,163,217}, {201,163,217}, {201,163,217}, {110,255,251}, {110,255,251},             {201,163,217}, {0,0,0}, {0,0,0}, {79,113,255}, {79,113,255}, {79,113,255}, {79,113,255}, {79,113,255}, {79,113,255}, {0,202,228}, {139,255,255}, {139,255,255}, {139,255,255}, {0,202,228},  },
+
+
+// };

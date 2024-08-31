@@ -16,7 +16,7 @@ enum tap_dance_codes {
   TD_CTRL_LEFT,
   TD_CTRL_RIGHT,
   TD_DOUBLE_COLON,
-  TD_TAB_SYM
+  TD_TAB_SYM,
 };
 
 typedef enum {
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[ALPHA] = LAYOUT(KC_Y,        KC_C,         KC_L,         KC_M,         KC_K,       KC_Z,         KC_F,         KC_U,                    TD(TD_COMMA_DASH), KC_QUOTE,
                     LGUI_T(KC_I), LALT_T(KC_S), LSFT_T(KC_R), LCTL_T(KC_T), KC_G,       TD(TD_P_NAV), RCTL_T(KC_N), RSFT_T(KC_E),            RALT_T(KC_A),      RGUI_T(KC_O),
                     KC_Q, KC_V, KC_W, KC_D, KC_J,                                       KC_B,         TD(TD_H_ESC), TD(TD_SLSH_UNDRSCR),     TD(TD_DOT_EXC),    TD(TD_X_PROG),
-                                            LT(SYM, KC_TAB), LT(NUM_FN,KC_ENTER),                        LT(NAV, KC_SPC), LT(PROG_SYM, KC_BSPC)),
+                                            LT(SYM, KC_TAB), LT(NUM_FN,KC_ENTER),                        LT(NAV, KC_SPC), LT(UTIL, KC_BSPC)),
 
 
 	// [2] = LAYOUT(KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -68,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_TILD, LSFT(KC_QUOTE), LSFT(KC_GRAVE), KC_TRNS, KC_DQUO,             LSFT(KC_BACKSLASH), KC_LBRC, KC_RBRC, KC_LABK,  KC_RABK,
                                             RGB_RMOD, TO(ALPHA),                         KC_TRNS, KC_TRNS),
 
-	[PROG_SYM] = LAYOUT(M_DOUBLE_EQUAL, M_TRIPLE_EQUAL, M_NOT_EQUAL , M_GT_EQUAL, M_LT_EQUAL,         KC_NO, M_AND_OPERATOR, M_OR_OPERATOR, M_INCLUDE, QK_BOOT,
+	[PROG_SYM] = LAYOUT(M_DOUBLE_EQUAL, M_TRIPLE_EQUAL, M_NOT_EQUAL , M_GT_EQUAL, M_LT_EQUAL,         KC_NO, M_AND_OPERATOR, M_OR_OPERATOR, M_INCLUDE, KC_NO,
                  M_PARENS, M_CURLY, M_BRACKETS, M_ANGLE, KC_NO,                                       KC_NO, M_ARROW_OPERATOR, M_ARROW_FN, KC_DQUO, KC_DLR,
-                 M_DECREMENT, M_INCREMENT, KC_NO, KC_NO, KC_NO,                                         KC_NO, KC_NO, M_LEFT_SHIFT, M_RIGHT_SHIFT,  KC_TRNS,
+                 M_DECREMENT, M_INCREMENT, KC_NO, KC_NO, KC_NO,                                         KC_NO, M_LEFT_SHIFT, M_RIGHT_SHIFT,  M_UPROPERTY, M_UFUNCTION,
                                             RGB_RMOD, KC_TRNS,                                          KC_TRNS, RGB_MOD),
 
 	// [NAV] = LAYOUT(RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,                       RGB_SPI, KC_HOME, KC_TRNS, KC_BTN2, KC_END,
@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_F1, KC_F2, KC_F3, KC_F4, KC_TRNS,                            KC_DOT, KC_1, KC_2, KC_3, KC_EQUAL,
                                             KC_VOLD, TG(ALPHA),                       KC_0, KC_TRNS),
 
-	[10] = LAYOUT(KC_TRNS, KC_COLN, KC_LT, KC_GT, KC_SCLN,                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AT,                         KC_TRNS, KC_NO, KC_EQL, KC_PLUS, KC_PERC,
-                 KC_TRNS, KC_EXLM, KC_LBRC, KC_RBRC, KC_TRNS,                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+	[UTIL] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                              KC_NO, KC_NO, KC_NO, QK_BOOT, KC_SLEP,
+                 LCTL(KC_Z), LCTL(KC_U), LCTL(KC_C), LCTL(KC_V), LCTL(KC_F),   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                 KC_CAPS_LOCK, KC_NO, KC_NO, KC_NO, KC_NO,                                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                                             KC_VOLD, KC_TRNS,                           KC_TRNS, KC_VOLU),
 
 	[11] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_F7, KC_F8, KC_F9, KC_F10,
@@ -487,7 +487,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
 
+        case M_UPROPERTY:
+        if (record->event.pressed) {
+            SEND_STRING("UPROPERTY()" SS_DELAY(500) SS_TAP(X_LEFT));
+        }
+        break;
 
+        case M_UFUNCTION:
+        if (record->event.pressed) {
+            SEND_STRING("UFUNCTION()" SS_DELAY(500) SS_TAP(X_LEFT));
+        }
+        break;
     };
     return true;
 }

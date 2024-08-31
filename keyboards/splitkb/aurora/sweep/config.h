@@ -16,6 +16,8 @@
 
 #pragma once
 
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
 // Not yet available in `info.json`
 #ifdef OLED_ENABLE
 #   define OLED_FONT_H "keyboards/splitkb/aurora/sweep/glcdfont.c"

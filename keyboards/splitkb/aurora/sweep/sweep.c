@@ -257,6 +257,8 @@ const char* get_layer_name(uint8_t layer) {
             return "Vim";
         case NUM_FN:
             return "Num/F";
+        case UTIL:
+            return "Util";
         default:
             return "N/A  ";
     }
@@ -304,7 +306,7 @@ bool oled_task_kb(void) {
         // clang-format off
       render_logo();
       render_logo_text();
-   
+
         // render_space();
     }
     return false;

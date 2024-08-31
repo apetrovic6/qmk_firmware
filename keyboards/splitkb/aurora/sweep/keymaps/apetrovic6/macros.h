@@ -21,6 +21,8 @@ enum macros  {
     M_OR_OPERATOR,
     M_INCREMENT,
     M_DECREMENT,
+    M_UPROPERTY,
+    M_UFUNCTION
 };
 
 

@@ -6,5 +6,6 @@ enum my_layers {
     PROG_SYM,
     NAV,
     VIM,
-    NUM_FN
+    NUM_FN,
+    UTIL
 };

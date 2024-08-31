@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_F1, KC_F2, KC_F3, KC_F4, KC_TRNS,                            KC_DOT, KC_1, KC_2, KC_3, KC_EQUAL,
                                             KC_VOLD, TG(ALPHA),                       KC_0, KC_TRNS),
 
-	[UTIL] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                              KC_NO, KC_NO, KC_NO, QK_BOOT, KC_SLEP,
+	[UTIL] = LAYOUT(KC_NO, KC_NO, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), KC_NO,                             KC_NO, KC_NO, QK_BOOT, LGUI(KC_L),KC_SLEP,
                  LCTL(KC_Z), LCTL(KC_U), LCTL(KC_C), LCTL(KC_V), LCTL(KC_F),   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                 KC_CAPS_LOCK, KC_NO, KC_NO, KC_NO, KC_NO,                                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                 KC_LOCKING_CAPS_LOCK, LGUI(LSFT(KC_S)), KC_DEL, KC_NO, KC_NO,                                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                                             KC_VOLD, KC_TRNS,                           KC_TRNS, KC_VOLU),
 
 	[11] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_F7, KC_F8, KC_F9, KC_F10,

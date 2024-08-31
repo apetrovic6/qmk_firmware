@@ -192,12 +192,17 @@ void render_logo_text(void) {
     oled_write_P(PSTR(" DrMr"), false);
 }
 
+void render_logo_text_alternate(void) {
+    oled_write_P(PSTR("Manjo"), false);
+}
+
 void render_wpm_text(void) {
     int curr_wpm = get_current_wpm();
     char wpm_chars[7];
 
-    snprintf(wpm_chars, sizeof(wpm_chars), "%2dWPM", curr_wpm);
+    snprintf(wpm_chars, sizeof(wpm_chars), "%3d", curr_wpm);
 
+    oled_write_P(PSTR(" WPM "), false);
     oled_write_P(PSTR(wpm_chars), false);
  }
 
@@ -298,6 +303,7 @@ bool oled_task_kb(void) {
         render_space();
         render_layer_name();
         render_layer_state();
+    render_space();
         render_wpm_text();
         // render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
         // render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
@@ -305,7 +311,7 @@ bool oled_task_kb(void) {
     } else {
         // clang-format off
       render_logo();
-      render_logo_text();
+      render_logo_text_alternate();
 
         // render_space();
     }

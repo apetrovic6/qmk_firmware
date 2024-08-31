@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[ALPHA] = LAYOUT(KC_Y,        KC_C,         KC_L,         KC_M,         KC_K,       KC_Z,         KC_F,         KC_U,                    TD(TD_COMMA_DASH), KC_QUOTE,
                     LGUI_T(KC_I), LALT_T(KC_S), LSFT_T(KC_R), LCTL_T(KC_T), KC_G,       TD(TD_P_NAV), RCTL_T(KC_N), RSFT_T(KC_E),            RALT_T(KC_A),      RGUI_T(KC_O),
                     KC_Q, KC_V, KC_W, KC_D, KC_J,                                       KC_B,         TD(TD_H_ESC), TD(TD_SLSH_UNDRSCR),     TD(TD_DOT_EXC),    TD(TD_X_PROG),
-                                            LT(SYM, KC_TAB), LT(NUM_FN,KC_ENTER),                        LT(NAV, KC_SPC), LT(UTIL, KC_BSPC)),
+                                            LT(SYM, KC_TAB), LT(NUM_FN,KC_ENTER),                        LT(NAV, KC_SPC), LT(UTIL, KC_ESC)),
 
 
 	// [2] = LAYOUT(KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_VOLD, TG(ALPHA),                       KC_0, KC_TRNS),
 
 	[UTIL] = LAYOUT(KC_NO, KC_NO, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), KC_NO,                             KC_NO, KC_NO, QK_BOOT, LGUI(KC_L),KC_SLEP,
-                 LCTL(KC_Z), LCTL(KC_U), LCTL(KC_C), LCTL(KC_V), LCTL(KC_F),   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                 LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_F),   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                  KC_LOCKING_CAPS_LOCK, LGUI(LSFT(KC_S)), KC_DEL, KC_NO, KC_NO,                                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                                             KC_VOLD, KC_TRNS,                           KC_TRNS, KC_VOLU),
 
@@ -447,7 +447,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case M_INCLUDE:
         if (record->event.pressed) {
-              SEND_STRING("#include \"\"" SS_DELAY(500) SS_TAP(X_LEFT));  // Send the string
+              SEND_STRING("#include \"\"" SS_DELAY(500) SS_TAP(X_LEFT));
         }
         break;
 
@@ -514,3 +514,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 // };
+
+// enum combo_events {
+//   BSPC,
+//   BSPC_LSFT_CLEAR,
+// };
+
+
+const uint16_t PROGMEM bsp_combo[] = {LCTL_T(KC_T), RCTL_T(KC_N), COMBO_END};
+
+combo_t key_combos[] = {
+  COMBO(bsp_combo, KC_BSPC),
+};

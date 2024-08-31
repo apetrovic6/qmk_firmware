@@ -68,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_TILD, LSFT(KC_QUOTE), LSFT(KC_GRAVE), KC_TRNS, KC_DQUO,             LSFT(KC_BACKSLASH), KC_LBRC, KC_RBRC, KC_LABK,  KC_RABK,
                                             RGB_RMOD, TO(ALPHA),                         KC_TRNS, KC_TRNS),
 
-	[PROG_SYM] = LAYOUT(M_DOUBLE_EQUAL, M_NOT_EQUAL, KC_TRNS, KC_TRNS, KC_TRNS,                         KC_TRNS, KC_UNDS, KC_PIPE, QK_BOOT, KC_SLASH,
-                 M_PARENS, M_CURLY, M_BRACKETS, M_ANGLE, KC_NO,                       KC_HASH, KC_TILD, KC_SLSH, KC_DQUO, KC_DLR,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                       KC_TRNS, KC_MINS, KC_BSLS, KC_GRV,  KC_TRNS,
-                                            RGB_RMOD, KC_TRNS,                          KC_TRNS, RGB_MOD),
+	[PROG_SYM] = LAYOUT(M_DOUBLE_EQUAL, M_TRIPLE_EQUAL, M_NOT_EQUAL , M_GT_EQUAL, M_LT_EQUAL,         KC_NO, M_AND_OPERATOR, M_OR_OPERATOR, M_INCLUDE, QK_BOOT,
+                 M_PARENS, M_CURLY, M_BRACKETS, M_ANGLE, KC_NO,                                       KC_NO, M_ARROW_OPERATOR, M_ARROW_FN, KC_DQUO, KC_DLR,
+                 M_DECREMENT, M_INCREMENT, KC_NO, KC_NO, KC_NO,                                         KC_NO, KC_NO, M_LEFT_SHIFT, M_RIGHT_SHIFT,  KC_TRNS,
+                                            RGB_RMOD, KC_TRNS,                                          KC_TRNS, RGB_MOD),
 
 	// [NAV] = LAYOUT(RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,                       RGB_SPI, KC_HOME, KC_TRNS, KC_BTN2, KC_END,
   //                KC_TRNS, KC_BTN2, KC_NO, KC_BTN1, KC_TRNS,                         KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,KC_SCLNKC_SCLNKC_SCLN
@@ -414,6 +414,80 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("!=");
         }
         break;
+
+        case M_GT_EQUAL:
+        if (record->event.pressed) {
+            SEND_STRING(">=");
+        }
+        break;
+
+        case M_LT_EQUAL:
+        if (record->event.pressed) {
+            SEND_STRING("<=");
+        }
+        break;
+
+        case M_TRIPLE_EQUAL:
+        if (record->event.pressed) {
+            SEND_STRING("===");
+        }
+        break;
+
+        case M_ARROW_OPERATOR:
+        if (record->event.pressed) {
+            SEND_STRING("->");
+        }
+        break;
+
+        case M_ARROW_FN:
+        if (record->event.pressed) {
+            SEND_STRING("=>");
+        }
+        break;
+
+        case M_INCLUDE:
+        if (record->event.pressed) {
+              SEND_STRING("#include \"\"" SS_DELAY(500) SS_TAP(X_LEFT));  // Send the string
+        }
+        break;
+
+        case M_LEFT_SHIFT:
+        if (record->event.pressed) {
+            SEND_STRING("<<");
+        }
+        break;
+
+        case M_RIGHT_SHIFT:
+        if (record->event.pressed) {
+            SEND_STRING(">>");
+        }
+        break;
+
+        case M_AND_OPERATOR:
+        if (record->event.pressed) {
+            SEND_STRING("&&");
+        }
+        break;
+
+        case M_OR_OPERATOR:
+        if (record->event.pressed) {
+            SEND_STRING("||");
+        }
+        break;
+
+        case M_INCREMENT:
+        if (record->event.pressed) {
+            SEND_STRING("++");
+        }
+        break;
+
+        case M_DECREMENT:
+        if (record->event.pressed) {
+            SEND_STRING("--");
+        }
+        break;
+
+
     };
     return true;
 }

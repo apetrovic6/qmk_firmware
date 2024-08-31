@@ -8,7 +8,19 @@ enum macros  {
     M_ANGLE,
     M_CURLY,
     M_DOUBLE_EQUAL,
-    M_NOT_EQUAL
+    M_NOT_EQUAL,
+    M_GT_EQUAL,
+    M_LT_EQUAL,
+    M_TRIPLE_EQUAL,
+    M_ARROW_OPERATOR,
+    M_ARROW_FN,
+    M_INCLUDE,
+    M_LEFT_SHIFT,
+    M_RIGHT_SHIFT,
+    M_AND_OPERATOR,
+    M_OR_OPERATOR,
+    M_INCREMENT,
+    M_DECREMENT,
 };
 
 

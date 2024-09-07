@@ -17,6 +17,10 @@ enum tap_dance_codes {
   TD_CTRL_RIGHT,
   TD_DOUBLE_COLON,
   TD_TAB_SYM,
+  TD_Q_UNDO,
+  TD_V_CUT,
+  TD_W_COPY,
+  TD_D_PASTE
 };
 
 typedef enum {
@@ -54,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[ALPHA] = LAYOUT(KC_Y,        KC_C,         KC_L,         KC_M,         KC_K,       KC_Z,         KC_F,         KC_U,                    TD(TD_COMMA_DASH), KC_QUOTE,
                     LGUI_T(KC_I), LALT_T(KC_S), LSFT_T(KC_R), LCTL_T(KC_T), KC_G,       TD(TD_P_NAV), RCTL_T(KC_N), RSFT_T(KC_E),            RALT_T(KC_A),      RGUI_T(KC_O),
-                    KC_Q, KC_V, KC_W, KC_D, KC_J,                                       KC_B,         TD(TD_H_ESC), TD(TD_SLSH_UNDRSCR),     TD(TD_DOT_EXC),    TD(TD_X_PROG),
+                    TD(TD_Q_UNDO), TD(TD_V_CUT), TD(TD_W_COPY), TD(TD_D_PASTE), KC_J,                                       KC_B,         TD(TD_H_ESC), TD(TD_SLSH_UNDRSCR),     TD(TD_DOT_EXC),    TD(TD_X_PROG),
                                             LT(SYM, KC_TAB), LT(NUM_FN,KC_ENTER),                        LT(NAV, KC_SPC), LT(UTIL, KC_ESC)),
 
 
@@ -94,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_VOLD, TG(ALPHA),                       KC_0, KC_TRNS),
 
 	[UTIL] = LAYOUT(KC_NO, KC_NO, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), KC_NO,                             KC_NO, KC_NO, QK_BOOT, LGUI(KC_L),KC_SLEP,
-                 LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_F),   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                                                    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                  KC_LOCKING_CAPS_LOCK, LGUI(LSFT(KC_S)), KC_DEL, KC_NO, KC_NO,                                 KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                                             KC_VOLD, KC_TRNS,                           KC_TRNS, KC_VOLU),
 
@@ -363,6 +367,97 @@ void tab_sym_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void q_undo_finished(tap_dance_state_t *state, void *user_data);
+void q_undo_reset(tap_dance_state_t *state, void *user_data);
+
+void q_undo_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(KC_Q);
+            break;
+        case TD_SINGLE_HOLD:
+            tap_code16(LCTL(KC_Z));
+            break;
+        default:
+            break;
+    }
+}
+
+void q_undo_reset(tap_dance_state_t *state, void *user_data) {
+    // No need for unregister_code when using tap_code or tap_code16
+    tap_state.state = TD_NONE;
+}
+
+
+void v_cut_finished(tap_dance_state_t *state, void *user_data);
+void v_cut_reset(tap_dance_state_t *state, void *user_data);
+
+void v_cut_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(KC_V);
+            break;
+        case TD_SINGLE_HOLD:
+            tap_code16(LCTL(KC_X));
+            break;
+        default:
+            break;
+    }
+}
+
+void v_cut_reset(tap_dance_state_t *state, void *user_data) {
+    // No need for unregister_code when using tap_code or tap_code16
+    tap_state.state = TD_NONE;
+}
+
+void w_copy_finished(tap_dance_state_t *state, void *user_data);
+void w_copy_reset(tap_dance_state_t *state, void *user_data);
+
+void w_copy_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(KC_W);
+            break;
+        case TD_SINGLE_HOLD:
+            tap_code16(LCTL(KC_C));
+            break;
+        default:
+            break;
+    }
+}
+void w_copy_reset(tap_dance_state_t *state, void *user_data) {
+    // No need for unregister_code when using tap_code or tap_code16
+    tap_state.state = TD_NONE;
+}
+
+
+
+//   TD_D_PASTE
+void d_paste_finished(tap_dance_state_t *state, void *user_data);
+void d_paste_reset(tap_dance_state_t *state, void *user_data);
+
+void d_paste_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_TAP:
+            tap_code16(KC_D);
+            break;
+        case TD_SINGLE_HOLD:
+            tap_code16(LCTL(KC_V));
+            break;
+        default:
+            break;
+    }
+}
+void d_paste_reset(tap_dance_state_t *state, void *user_data) {
+    // No need for unregister_code when using tap_code or tap_code16
+    tap_state.state = TD_NONE;
+}
+
+
 // Tap Dance definition
 tap_dance_action_t tap_dance_actions[] = {
     [TD_DOT_EXC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_exc_finished, dot_exc_reset),
@@ -375,6 +470,10 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CTRL_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrl_right_finished, ctrl_right_reset),
     [TD_DOUBLE_COLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, double_colon_finished, double_colon_reset),
     [TD_TAB_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_sym_finished, NULL),
+    [TD_Q_UNDO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, q_undo_finished, q_undo_reset),
+    [TD_V_CUT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, v_cut_finished, v_cut_reset),
+    [TD_W_COPY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, w_copy_finished, w_copy_reset),
+    [TD_D_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, d_paste_finished, d_paste_reset),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

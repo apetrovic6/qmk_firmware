@@ -7,5 +7,6 @@ enum my_layers {
     NAV,
     VIM,
     NUM_FN,
-    UTIL
+    UTIL,
+    QWERTY
 };

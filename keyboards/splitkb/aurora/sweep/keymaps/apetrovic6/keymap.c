@@ -620,10 +620,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // };
 
 
-const uint16_t PROGMEM bsp_combo[] = {LCTL_T(KC_T), RCTL_T(KC_N), COMBO_END};
+const uint16_t PROGMEM bsp_combo[] = { LCTL_T(KC_T), LSFT_T(KC_R), COMBO_END};
 const uint16_t PROGMEM bsp_ctrl_combo[] = { RCTL_T(KC_N), RSFT_T(KC_E), COMBO_END};
+const uint16_t PROGMEM colon_combo[] = { TD(TD_SLSH_UNDRSCR), TD(TD_DOT_EXC), COMBO_END};
+const uint16_t PROGMEM semicolon_combo[] = {  TD(TD_DOT_EXC),  TD(TD_X_PROG), COMBO_END};
 
 combo_t key_combos[] = {
   COMBO(bsp_combo, KC_BSPC),
   COMBO(bsp_ctrl_combo, LCTL(KC_BSPC)),
+  COMBO(colon_combo, KC_COLON),
+  COMBO(semicolon_combo, KC_SEMICOLON),
 };
